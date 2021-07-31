@@ -9,3 +9,4 @@ def invertTree(root):
 class Solution:
     def invertTree(self, root: TreeNode) -> TreeNode:
         return invertTree(root)
+ 
