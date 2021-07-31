@@ -7,7 +7,7 @@ class Solution:
                   return(i,j)
 #暴力解法
 
-
+ 
 
 
 
