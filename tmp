@@ -1,0 +1,87 @@
+class Solution {
+    public String longestPalindrome(String s) {
+        // 前處理，在字元間加入 #
+        char[] p = new char[ 2 * s.length() + 1 ];
+        p[0] = '#';
+        for(int i=0; i<s.length(); i++){
+            p[ 2 * i + 1 ]=s.charAt(i);
+            p[ 2 * i + 2 ] = '#';
+        }
+        // LPS陣列
+        int[] lps = new int[2 * s.length() +1 ];
+        
+        // 目前使用的迴文中心
+        int center =0;
+        // 目前迴文中心的右邊界
+        int centerRight = 0;
+        
+        int maxLPSIndex= 0;
+        int maxLPS = Integer.MIN_VALUE;
+        
+        for(int i=0; i< p.length; i++){
+            // mirror position
+            int mirrorIdx = 2 * center - i;
+            
+            if(i <centerRight){
+                lps[i] = Math.minㄋ(lps[mirrorIdx], centerRight -i);
+            }
+            
+            // 嘗試擴充目前的迴文長度
+            while( 
+                i+lps[i] +1  < p.length 
+                && i-lps[i] -1 >=0 
+                && p[i + lps[i] +1] == p[i-lps[i] -1] ){
+                
+                lps[i]++;
+            }
+            
+            // 如過i的迴文區間超過右邊界，則更新 center與 centerRight
+            if(i + lps[i] > centerRight){
+                center = i;
+                centerRight = i+lps[i];
+            }
+            
+            if(lps[i] > maxLPS){
+                maxLPS = lps[i];
+                maxLPSIndex = i;
+            }
+  
+        }
+        
+        // 移除 # 並找到最長迴文字串
+        String str = new String(p);
+        str = str.substring(maxLPSIndex - maxLPS, maxLPSIndex + maxLPS +1);
+        return str.replace("#", "");
+    }
+}
+
+
+
+
+
+    string longestPalindrome(string s) {
+        string t ="$#";
+        for (int i = 0; i < s.size(); ++i) {
+            t += s[i];
+            t += '#';
+        }
+        int p[t.size()];
+        int id = 0;
+        int mx = 0;
+        int resId = 0; 
+        int resMx = 0;
+        for (int i = 1; i < t.size(); ++i) {
+            p[i] = mx > i ? min(p[2 * id - i], mx - i) : 1;
+            while (t[i + p[i]] == t[i - p[i]]) ++p[i];
+            if (mx < i + p[i]) {
+                mx = i + p[i];
+                id = i;
+            }
+            if (resMx < p[i]) {
+                resMx = p[i];
+                resId = i;
+            }
+        }
+        return s.substr((resId - resMx) / 2, resMx - 1);
+    }
+};
