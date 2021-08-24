@@ -1,18 +1,18 @@
 class Solution {
 public:
-    int maxProfit(vector<int>& prices){
-        int result=0;
+    int maxProfit(vector<int>& prices) {
+        int ans=0;
         int lowest=prices[0];
-        for(int i:prices){
-            if(i>lowest){
-                if(result<i-lowest){
-                    result=i-lowest;
+        for (int i:prices){
+            if (i>lowest){
+                if (ans<i-lowest){
+                ans=i-lowest;
                 }
-            }
+            }    
             else{
                 lowest=i;
             }
         }
-        return result;
+        return ans;
     }
 };
