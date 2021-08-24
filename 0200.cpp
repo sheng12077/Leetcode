@@ -10,7 +10,7 @@ public:
         int ans=0;                                                 //ans代表島的數量                
         for (int y=0;y<m;y++){                                     //先跑y  
             for (int x=0;x<n;x++){                                 //再跑x      
-                ans+=grid[y][x]-'0';                                       
+                ans+=grid[y][x]-'0';                               //其實兩個for可以調換,只是我懶        
                 dfs(grid,x,y,m,n);                                       
             }                                       
         }                                       
